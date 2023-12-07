@@ -13,7 +13,7 @@
           height="684px"
           width="684px"
           class="absolute right-20 top-36"
-          src="v1701362721/onlineo-login-image_ofg8eb.png"
+          src="https://res.cloudinary.com/dffn0kkyj/image/upload/v1701362721/onlineo-login-image_ofg8eb.png"
         />
       </div>
       <SearchBar />
@@ -34,19 +34,22 @@ const steps = [
     title: "Step 1",
     description:
       "Find your desired product. Type in the name of the product browse through categories to discover a wide range of options",
-    image: "/v1701316828/step-1_naxtoq.png",
+    image:
+      "https://res.cloudinary.com/dffn0kkyj/image/upload/v1701316828/step-1_naxtoq.png",
   },
   {
     title: "Step 2",
     description:
       "View product details and add to cart. You're one step closer to owning the perfect item.",
-    image: "/v1701316827/step-2_x6veg6.png",
+    image:
+      "https://res.cloudinary.com/dffn0kkyj/image/upload/v1701316827/step-2_x6veg6.png",
   },
   {
     title: "Step 3",
     description:
       "Secure your payment. Then, relax and wait for your product to be delivered!",
-    image: "/v1701316827/step-3_ytr4ax.webp",
+    image:
+      "https://res.cloudinary.com/dffn0kkyj/image/upload/v1701316827/step-3_ytr4ax.webp",
   },
 ];
 </script>

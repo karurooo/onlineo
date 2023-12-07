@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-[600px] w-[600px] border-2 absolute top-40 p-10 rounded-lg z-50 bg-black flex flex-col justify-center"
+    class="h-[600px] w-[600px] border-2 absolute top-40 left-[650px] p-10 rounded-lg z-50 bg-black flex flex-col justify-center"
     v-if="isVisible"
   >
     <button
@@ -14,7 +14,7 @@
       <input
         required
         v-for="field in InputField"
-        v-model="ProductDetail[field.model]"
+        v-model="addProducts.ProductDetail[field.model]"
         :key="field.model"
         :type="field.type"
         :placeholder="field.placeholder"
@@ -24,7 +24,7 @@
       <input
         class="block w-full text-sm text-white border-b-2 cursor-pointer bg-transparent focus:outline-none"
         type="file"
-        @change="ImageUpload"
+        @change="handleImageUpload"
         ref="fileInput"
       />
 
@@ -32,11 +32,11 @@
       <select
         id="underline_select"
         class="block py-2.5 px-0 w-full text-sm text-white bg-black border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-        v-model="ProductDetail.category_id"
+        v-model="addProducts.ProductDetail.category_id"
       >
         <option disabled selected>Product Category</option>
         <option
-          v-for="category in ProductCategory"
+          v-for="category in addProducts.ProductCategory"
           :key="category.id"
           :value="category.id"
           class="text-white bg-black"
@@ -47,7 +47,7 @@
 
       <button
         class="h-12 w-32 rounded-lg border-2 hover:bg-white hover:text-black"
-        @click="AddProduct"
+        @click="handleAddProduct"
       >
         Add Product
       </button>
@@ -56,6 +56,9 @@
 </template>
 
 <script setup>
+import { useAddProductStore } from "~/store/useAddProduct";
+
+const addProducts = useAddProductStore();
 const InputField = [
   {
     type: "text",
@@ -79,6 +82,16 @@ const InputField = [
   },
 ];
 
+const ResetForm = () =>
+  (form.value = {
+    name: "",
+    description: "",
+    price: null,
+    quantity: null,
+    image: null,
+    category_id: null,
+  });
+
 const props = defineProps({
   isVisible: Boolean,
 });
@@ -89,124 +102,18 @@ const CloseModal = () => {
   emit("close-modal");
 };
 
-const ProductDetail = ref({
-  name: "",
-  description: "",
-  price: null,
-  quantity: null,
-  image: null,
-  category_id: null,
+const handleImageUpload = async (event) => {
+  await addProducts.uploadImage(event);
+};
+const handleAddProduct = async () => {
+  await addProducts.addProduct();
+  if (addProducts.addProductSuccess) {
+    CloseModal();
+    ResetForm();
+  }
+};
+
+onMounted(() => {
+  addProducts.initalizeAuth();
 });
-
-const ProductCategory = [
-  {
-    id: 1,
-    name: "Jeans",
-  },
-  {
-    id: 2,
-    name: "Shirts",
-  },
-  {
-    id: 3,
-    name: "Tops",
-  },
-  {
-    id: 4,
-    name: "Shorts",
-  },
-  {
-    id: 5,
-    name: "Bottom Wear",
-  },
-];
-
-const userId = ref("");
-const token = ref("");
-
-if (process.client) {
-  token.value = localStorage.getItem("userToken");
-  userId.value = localStorage.getItem("userId");
-
-  if (!token.value || !userId.value) {
-    console.error(
-      "Please Login. No token and User ID found in the Local Storage"
-    );
-    // Handle lack of token or user ID appropriately, maybe redirect to login?
-  }
-}
-
-const ImageUpload = (event) => {
-  const files = event.target.files;
-  if (files.length > 0) {
-    const file = files[0];
-    // Ensure the file size is less than 2MB and is an acceptable image type
-    if (
-      file.size <= 2 * 1024 * 1024 &&
-      ["image/jpeg", "image/png", "image/jpg", "image/gif"].includes(file.type)
-    ) {
-      ProductDetail.value.image = file;
-    } else {
-      console.error("File is either too large or not an image.");
-      // Handle file error appropriately
-    }
-  }
-};
-
-const AddProduct = async () => {
-  if (
-    !ProductDetail.value.name ||
-    !ProductDetail.value.category_id ||
-    !ProductDetail.value.image ||
-    !ProductDetail.value.price ||
-    !ProductDetail.value.quantity
-  ) {
-    console.error("Required fields are missing");
-    // Add more detailed error handling or user feedback here
-    return;
-  }
-  const formData = new FormData();
-
-  // Append product details to form data
-  formData.append("prod_name", ProductDetail.value.name);
-  formData.append("prod_description", ProductDetail.value.description);
-  formData.append("prod_price", ProductDetail.value.price.toString());
-  formData.append("prod_stock", ProductDetail.value.quantity.toString());
-  formData.append("prod_image", ProductDetail.value.image);
-  formData.append("category_id", ProductDetail.value.category_id);
-  formData.append("user_id", userId.value);
-  try {
-    const response = await fetch("http://project110.test/api/product", {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        authorization: `Bearer ${token.value}`,
-      },
-      body: formData,
-    });
-
-    if (!response.ok) {
-      const errorResponse = await response.json();
-      console.error(
-        `Error: ${response.status} - ${response.statusText}`,
-        errorResponse
-      );
-      // Handle HTTP error appropriately
-    } else {
-      const responseBody = await response.json();
-      console.log("Product created successfully:", responseBody);
-      ProductDetail.value = {
-        name: "",
-        description: "",
-        price: null,
-        quantity: null,
-        image: null,
-        category_id: null,
-      };
-      CloseModal(); // Close the modal on success
-    }
-  } catch (error) {
-    console.error("Network error:", error);
-  }
-};
 </script>

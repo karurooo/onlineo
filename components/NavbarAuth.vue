@@ -1,7 +1,9 @@
 <template>
   <div class="h-14 w-full bg-black flex justify-around py-3">
     <div class="w-52">
-      <h1 class="font-bold text-4xl">Onlineo</h1>
+      <NuxtLink to="/dashboard">
+        <h1 class="font-bold text-4xl">Onlineo</h1>
+      </NuxtLink>
     </div>
     <div class="w-1/2">
       <SearchBar />
@@ -11,6 +13,11 @@
         class="h-12 w-12 rounded-full hover:scale-105 border-2 hover:bg-slate-500"
         v-for="button in buttons"
         :key="button"
+        @click="
+          button.icon === 'material-symbols:shopping-cart-rounded'
+            ? openCart()
+            : null
+        "
       >
         <NuxtLink :to="button.link">
           <icon size="32" :name="button.icon" />
@@ -21,9 +28,24 @@
 </template>
 
 <script setup>
+import { useCartStore } from "~/store/useCartStore";
+const cartStore = useCartStore();
+
+function openModal() {
+  console.log("Cart icon clicked, opening modal...");
+  cartStore.showCartModal();
+}
+
+function openCart(button) {
+  console.log(button);
+  if (button.icon === "material-symbols:shopping-cart-rounded") {
+    openModal();
+  }
+}
+
 const buttons = [
-  { icon: "material-symbols:notifications-rounded", link: "/profile" },
-  { icon: "material-symbols:shopping-cart-rounded", link: "/" },
+  { icon: "material-symbols:dashboard", link: "/dashboard" },
+  { icon: "material-symbols:shopping-cart-rounded", link: "/cart" },
   { icon: "material-symbols:sell-outline", link: "/seller_dashboard" },
   { icon: "material-symbols:person", link: "/profile" },
 ];

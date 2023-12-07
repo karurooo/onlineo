@@ -1,7 +1,9 @@
 <template>
   <div class="h-screen w-full bg-black text-white">
     <NavbarAuth />
-    <h1>This is the Profile</h1>
+    <div class="flex flex-col items-center justify-center p-10">
+      <h1>This is the Profile</h1>
+    </div>
   </div>
 </template>
 

@@ -58,7 +58,15 @@ const LoginData = ref({
   email: "",
   password: "",
 });
+
 const SubmitLogin = async () => {
+  try {
+    const csrf_token = await useFetch("http://project110.test/api/csrf-token", {
+      credentials: "include",
+    });
+  } catch (error) {
+    console.error("Catch Error:", error);
+  }
   try {
     const { data: response, error } = await useFetch(
       "http://project110.test/api/login",

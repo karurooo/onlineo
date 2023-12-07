@@ -12,12 +12,17 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.10.1",
+    "@sidebase/nuxt-auth": "^0.6.3-alpha.1",
     "nuxt": "^3.8.2",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
     "@nuxt/image": "^1.1.0",
-    "nuxt-icon": "^0.6.6"
+    "@pinia/nuxt": "^0.5.1",
+    "dotenv": "^16.3.1",
+    "nuxt-icon": "^0.6.6",
+    "nuxt-swiper": "^1.2.2",
+    "pinia": "^2.1.7"
   }
 }

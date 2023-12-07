@@ -2,7 +2,7 @@ import { ref } from "vue";
 
 const isVisible = ref(false);
 
-export function useSearchModal() {
+export function useModal() {
   function OpenModal() {
     isVisible.value = true;
   }
