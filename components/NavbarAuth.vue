@@ -28,21 +28,6 @@
 </template>
 
 <script setup>
-import { useCartStore } from "~/store/useCartStore";
-const cartStore = useCartStore();
-
-function openModal() {
-  console.log("Cart icon clicked, opening modal...");
-  cartStore.showCartModal();
-}
-
-function openCart(button) {
-  console.log(button);
-  if (button.icon === "material-symbols:shopping-cart-rounded") {
-    openModal();
-  }
-}
-
 const buttons = [
   { icon: "material-symbols:dashboard", link: "/dashboard" },
   { icon: "material-symbols:shopping-cart-rounded", link: "/cart" },

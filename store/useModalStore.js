@@ -17,7 +17,7 @@ export const useProductModalStore = defineStore("productModal", {
       }
     },
     showProduct(product) {
-      this.product = product;
+      this.product = { ...product, quantity: 1 };
       this.showModal = true;
     },
     hideModal() {

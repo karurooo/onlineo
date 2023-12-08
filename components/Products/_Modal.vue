@@ -91,13 +91,12 @@ const addToCart = (product) => {
   }
 };
 const increaseQuantity = () => {
-  productModalStore.product.quantity++;
-  console.log("button clicked");
+  productModalStore.product.quantity = productModalStore.product.quantity + 1;
 };
 
 const decreaseQuantity = () => {
   if (productModalStore.product.quantity > 1) {
-    productModalStore.product.quantity--;
+    productModalStore.product.quantity = productModalStore.product.quantity - 1;
   }
 };
 </script>
