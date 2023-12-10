@@ -8,10 +8,15 @@
         delay: 2500,
         disableOnInteraction: true,
       }"
+      class="w-full"
     >
-      <SwiperSlide v-for="product in LatestProducts" :key="product.id">
+      <SwiperSlide
+        v-for="product in LatestProducts"
+        :key="product.id"
+        class="flex flex-col items-center w-full sm:w-auto"
+      >
         <div
-          class="h-full w-96 bg-white text-black flex flex-col justify-center items-center hover:scale-105 translate-transform ease-in-out duration-500 mx-5"
+          class="h-full w-full sm:w-96 bg-white text-black flex flex-col justify-center items-center hover:scale-105 translate-transform ease-in-out duration-500 mx-5"
           @click="showProductDetails(product)"
           cursor="pointer"
         >
@@ -21,7 +26,6 @@
             class="h-52 w-52 object-cover border-2 shadow-lg rounded-lg m-2"
           />
           <p class="text-lg">{{ product.prod_name }}</p>
-
           <p class="text-lg">₱{{ product.prod_price }}</p>
           <div class="flex gap-3">
             <button

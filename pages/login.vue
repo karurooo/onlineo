@@ -37,7 +37,11 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "~/store/useAuthStore";
+
+const authStore = useAuthStore();
 const router = useRouter();
+
 const FormField = [
   {
     id: "email",
@@ -61,41 +65,28 @@ const LoginData = ref({
 
 const SubmitLogin = async () => {
   try {
-    const csrf_token = await useFetch("http://project110.test/api/csrf-token", {
-      credentials: "include",
-    });
-  } catch (error) {
-    console.error("Catch Error:", error);
-  }
-  try {
-    const { data: response, error } = await useFetch(
-      "http://project110.test/api/login",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(LoginData.value),
-      }
+    const csrfResponse = await useFetch(
+      "http://project110.test/api/csrf-token"
     );
-    if (error.value) {
-      console.error("error", error.value);
-      return;
+
+    if (csrfResponse) {
+      console.log(csrfResponse);
+    }
+    const csrfToken = csrfResponse.data["csrf_token"];
+
+    console.log(csrfToken);
+    // Call the login action from your auth store
+    await authStore.login(LoginData.value, csrfToken);
+    // If login is successful, redirect to the dashboard
+
+    if (authStore.isAuthenticated) {
+      router.push("/dashboard");
     } else {
-      console.log("login successfully", response.value);
-      if (response.value && response.value.user && response.value.token) {
-        console.log(response.value.user.id);
-        localStorage.setItem("userToken", response.value.token);
-        localStorage.setItem("userId", response.value.user.id);
-        router.push("/dashboard");
-      } else {
-        // Handle the case where the expected properties are not defined
-        console.error("Unexpected response structure:", response.value);
-      }
+      // Handle the case where login was not successful
+      console.error("Login failed: User is not authenticated.");
     }
   } catch (error) {
-    console.error("Catch Error:", error);
+    console.error(" Error:", error);
   }
 };
 </script>

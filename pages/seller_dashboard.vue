@@ -1,35 +1,30 @@
 <template>
-  <div class="h-screen w-full text-white bg-black">
+  <div class="h-screen w-full text-white bg-black overflow-hidden relative">
     <NavbarAuth />
-    <div
-      class="h-5/6 w-96 flex justify-center items-center border-2 rounded-lg m-10"
-    >
-      <div class="h-1/2 w-80 flex flex-col justify-center items-center">
-        <h1 class="text-4xl font-bold">Welcome to your Seller Dashboard</h1>
-        <h2 class="text-xl font-bold">What would you like to do?</h2>
-        <div class="flex gap-4 mt-4">
-          <button
-            class="h-12 w-32 rounded-lg border-2 hover:bg-white hover:text-black"
-            @click="ShowModal = true"
-          >
-            Add Product
-          </button>
-          <button
-            class="h-12 w-32 rounded-lg border-2 hover:bg-white hover:text-black"
-          >
-            View Products
-          </button>
-        </div>
-        <Listing_AddProduct
-          :isVisible="ShowModal"
-          @close-modal="ShowModal = false"
-        />
+    <div class="mt-24 py-6 px-5">
+      <div class="flex">
+        <h2 class="text-4xl font-semibold mb-6">Your Products</h2>
+        <button
+          class="h-12 w-32 rounded-lg border-2 hover:bg-white hover:text-black ml-5"
+          @click="modals.addProduct.showModal"
+        >
+          Add Products
+        </button>
       </div>
+      <Listing_MyProducts />
     </div>
+
+    <Listing_AddProduct
+      :isVisible="modals.addProduct.isModalVisible.value"
+      @close="modals.addProduct.hideModal"
+    />
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-const ShowModal = ref(false);
+import { useModal } from "~/composables/useModal";
+
+const modals = {
+  addProduct: useModal(),
+};
 </script>

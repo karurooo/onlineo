@@ -37,7 +37,10 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "~/store/useAuthStore";
+
 const router = useRouter();
+const authStore = useAuthStore();
 
 const FormField = [
   {
@@ -90,32 +93,11 @@ const RegisterData = ref({
   username: "",
   email: "",
   password: "",
+  confirm_password: "",
 });
 
 const SubmitSignup = async () => {
-  try {
-    const { data: response, error } = await useFetch(
-      "http://project110.test/api/register",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(RegisterData.value),
-      }
-    );
-    if (error.value) {
-      console.error("error", error.value);
-      console.error("Registration failed with status:", response.status);
-      console.error("Error message:", errorMessage);
-      return;
-    } else {
-      console.log("Registration successful:", response);
-      router.push("/login");
-    }
-  } catch (error) {
-    console.error("Catch Error:", error);
-  }
+  await authStore.register(RegisterData.value);
+  router.push("/login");
 };
 </script>

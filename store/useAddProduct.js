@@ -29,7 +29,7 @@ export const useAddProductStore = defineStore("AddProduct", {
         this.Token = localStorage.getItem("userToken");
         this.userId = localStorage.getItem("userId");
         if (!this.Token || !this.userId) {
-          console.error("No token or userId found. Please Login");
+          alert("No token or userId found. Please Login");
         }
       }
     },

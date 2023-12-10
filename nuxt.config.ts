@@ -4,7 +4,6 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "nuxt-icon", '@nuxt/image', 'nuxt-swiper', '@pinia/nuxt',],
   pages: true,
   css: ['~/assets/css/main.css'],
-  // auth: {
-  //   globalAppMiddleware: true,
-  // },W
+  plugins: ['~/plugins/inactivity.js', '~/plugins/checkAuth.js'],
+
 });
