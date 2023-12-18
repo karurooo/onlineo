@@ -1,10 +1,9 @@
 <template>
-  <div class="h-screen w-full text-white bg-black flex flex-col items-center s">
+  <div
+    class="h-full w-full flex flex-col items-center bg-black text-white relative"
+  >
     <NavbarAuth />
-    <div class="h-5/6 w-full mt-20 flex flex-col items-center">
-      <h1 class="text-4xl self-start font-bold ml-20 my-6">Top Picks</h1>
-      <Products_TopPicks />
-    </div>
+    <Products_Display />
   </div>
 </template>
 

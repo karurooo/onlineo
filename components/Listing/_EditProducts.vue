@@ -4,9 +4,9 @@
     class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
   >
     <div
-      class="bg-black shadow-gray-300 p-6 rounded-lg shadow-xl max-w-md w-full"
+      class="bg-[#F4DFC8] shadow-gray-300 p-6 rounded-lg shadow-xl max-w-md w-full"
     >
-      <h2 class="text-xl font-bold mb-4">Edit Product</h2>
+      <h2 class="text-xl font-bold mb-4 text-black">Edit Product</h2>
       <div class="mb-4">
         <input
           required
@@ -15,7 +15,7 @@
           :key="field.model"
           :type="field.type"
           :placeholder="field.placeholder"
-          class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none"
+          class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none"
         />
       </div>
 
@@ -32,18 +32,22 @@
       />
 
       <label for="underline_select" class="sr-only">Underline select</label>
+
       <select
         id="underline_select"
-        class="block py-2.5 px-0 w-full text-sm text-black bg-white border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+        class="block py-2.5 px-0 w-full text-sm text-gray-700 bg-transparent border-0 border-b-2 border-black b appearance-none focus:outline-none focus:ring-0 focus:border-gray-900"
         v-model="editProductStore.EditProductDetail.category_id"
         @change="handleSelectChange"
       >
-        <option class="text-black" disabled selected>Product Category</option>
+        <option disabled selected>Product Category</option>
         <option
           v-for="category in editProductStore.ProductCategory"
           :key="category.id"
           :value="category.id"
-        ></option>
+          class="text-gray-700 bg-white hover:bg-gray-100"
+        >
+          {{ category.name }}
+        </option>
       </select>
       <div class="flex justify-end mt-6">
         <button

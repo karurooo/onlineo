@@ -1,5 +1,5 @@
 <template>
-  <div class="h-12 w-full flex justify-between px-16 py-3">
+  <div class="h-12 w-full flex justify-between px-16 py-3 text-white">
     <h1 class="font-black text-4xl">Onlineo</h1>
     <div class=""></div>
     <div class="flex h-12 gap-2 items-center">

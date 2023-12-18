@@ -13,6 +13,7 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.10.1",
     "@sidebase/nuxt-auth": "^0.6.3-alpha.1",
+    "@unlok-co/nuxt-stripe": "^2.0.0",
     "nuxt": "^3.8.2",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
@@ -23,6 +24,7 @@
     "dotenv": "^16.3.1",
     "nuxt-icon": "^0.6.6",
     "nuxt-swiper": "^1.2.2",
-    "pinia": "^2.1.7"
+    "pinia": "^2.1.7",
+    "sweetalert2": "^11.10.1"
   }
 }

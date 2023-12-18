@@ -1,5 +1,9 @@
 import { defineStore } from "pinia";
+import { useNotification } from "~/composables/useNotifications";
+import { getToken } from "~/utils/token";
+import { useProductStore } from "./useProductStore";
 
+const { notify } = useNotification();
 export const useAddProductStore = defineStore("AddProduct", {
   state: () => ({
     ProductDetail: {
@@ -11,12 +15,16 @@ export const useAddProductStore = defineStore("AddProduct", {
       category_id: null,
     },
     ProductCategory: [
-      { id: 1, name: "Jeans" },
-      { id: 2, name: "Shirts" },
-      { id: 3, name: "Tops" },
-      { id: 4, name: "Shorts" },
-      { id: 5, name: "Bottom ear" },
-      { id: 6, name: "Shoes" },
+      { id: 1, name: "Casual" },
+      { id: 2, name: "Formal" },
+      { id: 3, name: "Sneakers" },
+      { id: 4, name: "Boots" },
+      { id: 5, name: "Sandals" },
+      { id: 6, name: "Running" },
+      { id: 7, name: "Basketball" },
+      { id: 8, name: "Cricket" },
+      { id: 9, name: "Soccer" },
+      { id: 10, name: "Tennis" },
     ],
     userId: "",
     Token: "",
@@ -25,13 +33,9 @@ export const useAddProductStore = defineStore("AddProduct", {
 
   actions: {
     initalizeAuth() {
-      if (process.client) {
-        this.Token = localStorage.getItem("userToken");
-        this.userId = localStorage.getItem("userId");
-        if (!this.Token || !this.userId) {
-          alert("No token or userId found. Please Login");
-        }
-      }
+      const { token, userId } = getToken();
+      this.userId = userId;
+      this.Token = token;
     },
 
     async uploadImage(event) {
@@ -63,6 +67,11 @@ export const useAddProductStore = defineStore("AddProduct", {
 
             const result = await response.json();
             this.ProductDetail.image = result.secure_url;
+            notify({
+              title: "Image Upload Success",
+              text: "Your image has been uploaded successfully",
+              icon: "success",
+            });
           } catch (error) {
             console.error("Image upload error:", error);
           }
@@ -73,6 +82,7 @@ export const useAddProductStore = defineStore("AddProduct", {
     },
 
     async addProduct() {
+      const { displayAllProducts } = useProductStore();
       if (
         !this.ProductDetail.name ||
         !this.ProductDetail.description ||
@@ -106,11 +116,20 @@ export const useAddProductStore = defineStore("AddProduct", {
             }
           );
 
+          notify({
+            title: "Product Add Success",
+            text: "Your product has been added successfully",
+            icon: "success",
+          });
           console.log("Product added successfully:", responseBody);
+
+          const productStore = useProductStore();
+          await productStore.fetchMyProducts();
           this.resetProduct();
           this.addProductSuccess = true;
         } catch (error) {
           console.error("Network error:", error);
+          this.addProductSuccess = false;
         }
       }
     },

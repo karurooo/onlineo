@@ -1,39 +1,37 @@
 <template>
   <div
-    class="h-screen w-full bg-black text-white flex flex-col justify-center items-center"
+    class="flex h-screen w-full bg-black text-white items-center justify-center"
   >
     <form
-      class="h-[584px] w-[484px] border-2 border-white flex flex-col gap-4 justify-center items-center"
       @submit.prevent="SubmitSignup"
+      class="flex flex-col items-center justify-center w-full max-w-md p-6 gap-4 bg-black shadow-gray-400 rounded-lg shadow-lg"
     >
-      <h1 class="self-center text-3xl font-bold">Signup</h1>
-      <input
-        required
-        v-model="RegisterData[Field.model]"
-        :type="Field.type"
-        :id="Field.id"
-        :placeholder="Field.placeholder"
-        class="w-11/12 h-12 bg-transparent border-2 border-gray-400 text-sm rounded-lg p-2.5"
-        v-for="Field in FormField"
-        :key="Field.id"
-      />
-
+      <h1 class="text-3xl font-bold">Signup</h1>
+      <template v-for="Field in FormField">
+        <input
+          required
+          v-model="RegisterData[Field.model]"
+          :type="Field.type"
+          :id="Field.id"
+          :placeholder="Field.placeholder"
+          class="w-full px-4 py-2 bg-transparent text-sm rounded-lg bg-black shadow-gray-400 shadow-lg"
+        />
+      </template>
       <button
-        class="h-10 w-11/12 my-4 self-center bg-white text-black hover:bg-black hover:text-white hover:border-2 rounded-lg"
         type="submit"
+        class="w-full py-2 mt-4 text-white bg-gray-800 rounded-lg shadow-lg hover:bg-gray-600"
       >
         Register
       </button>
-      <Nuxt-Link
+      <NuxtLink
         to="/login"
-        class="text-sm hover:scale-105 hover:text-gray-400"
+        class="mt-4 text-sm hover:underline hover:text-gray-300"
       >
         Already have an account? Sign in
-      </Nuxt-Link>
+      </NuxtLink>
     </form>
   </div>
 </template>
-
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";

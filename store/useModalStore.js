@@ -1,5 +1,6 @@
 // stores/useProductModalStore.js
 import { defineStore } from "pinia";
+import { getToken } from "~/utils/token";
 
 export const useProductModalStore = defineStore("productModal", {
   state: () => ({
@@ -8,14 +9,12 @@ export const useProductModalStore = defineStore("productModal", {
     quantity: 1,
   }),
   actions: {
-    addToCart(product) {
-      const existingItem = this.items.find((item) => item.id === product.id);
-      if (existingItem) {
-        existingItem.quantity += product.quantity;
-      } else {
-        this.items.push(product);
-      }
+    initalizeAuth() {
+      const { token, userId } = getToken();
+      this.userId = userId;
+      this.Token = token;
     },
+
     showProduct(product) {
       this.product = { ...product, quantity: 1 };
       this.showModal = true;

@@ -3,6 +3,8 @@
     <NavbarAuth />
     <div class="flex flex-col items-center justify-center p-10">
       <h1>This is the Profile</h1>
+
+      <Products_Recent />
     </div>
   </div>
 </template>

@@ -4,7 +4,7 @@
     v-if="isVisible"
   >
     <div
-      class="h-[600px] w-[600px] border-2 absolute top-40 left-[650px] p-10 rounded-lg z-50 bg-black flex flex-col justify-center"
+      class="h-[600px] w-[600px] border-2 absolute top-40 xl:left-[450px] lg:left-[230px] 2xl:left-[1000px] p-10 rounded-lg z-50 bg-black flex flex-col justify-center"
     >
       <button
         class="h-10 w-10 border-2 hover:bg-gray-700 rounded-full absolute right-5 top-5"
@@ -61,6 +61,9 @@
 
 <script setup>
 import { useAddProductStore } from "~/store/useAddProduct";
+import { useNotification } from "~/composables/useNotifications";
+
+const { notify } = useNotification();
 
 const props = defineProps({
   isVisible: Boolean,
@@ -69,9 +72,9 @@ const props = defineProps({
 // Setup the close event emitter
 const emit = defineEmits(["close"]);
 
-// Method to close the modal, which emits the close event
 const closeModal = () => {
-  emit("close");
+  emit("close"); // This emits the "close" event
+  console.log("Modal closed");
 };
 const addProducts = useAddProductStore();
 const InputField = [
@@ -97,23 +100,27 @@ const InputField = [
   },
 ];
 
-const ResetForm = () =>
-  (form.value = {
-    name: "",
-    description: "",
-    price: null,
-    quantity: null,
-    image: null,
-    category_id: null,
-  });
-
 const handleImageUpload = async (event) => {
   await addProducts.uploadImage(event);
 };
 const handleAddProduct = async () => {
   await addProducts.addProduct();
   if (addProducts.addProductSuccess) {
-    ResetForm();
+    notify({
+      title: "You Successfully Added a Product",
+      text: "You can now see your product in your dashboard",
+      icon: "success",
+      confirmButtonText: "OK",
+    });
+    closeModal();
+  } else {
+    // Handle the error case
+    notify({
+      title: "Error Adding Product",
+      text: "Please try again or contact support if the problem persists.",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
   }
 };
 

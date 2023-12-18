@@ -70,6 +70,8 @@ export const useAuthStore = defineStore("auth", {
         localStorage.removeItem("userId");
       }
       this.stopSessionCheck();
+
+      navigateTo("/");
     },
     loadFromLocalStorage() {
       const token = localStorage.getItem("userToken");
@@ -83,7 +85,7 @@ export const useAuthStore = defineStore("auth", {
       this.stopSessionCheck(); // Clear any existing timers
       this.sessionCheckIntervalId = setInterval(
         this.checkSession,
-        5 * 60 * 1000
+        10 * 60 * 1000
       ); // every 5 minutes
     },
     stopSessionCheck() {
