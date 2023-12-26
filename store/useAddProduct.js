@@ -27,7 +27,7 @@ export const useAddProductStore = defineStore("AddProduct", {
       { id: 10, name: "Tennis" },
     ],
     userId: "",
-    Token: "",
+    token: "",
     addProductSuccess: false,
   }),
 
@@ -35,7 +35,7 @@ export const useAddProductStore = defineStore("AddProduct", {
     initalizeAuth() {
       const { token, userId } = getToken();
       this.userId = userId;
-      this.Token = token;
+      this.token = token;
     },
 
     async uploadImage(event) {
@@ -82,7 +82,6 @@ export const useAddProductStore = defineStore("AddProduct", {
     },
 
     async addProduct() {
-      const { displayAllProducts } = useProductStore();
       if (
         !this.ProductDetail.name ||
         !this.ProductDetail.description ||
@@ -110,7 +109,7 @@ export const useAddProductStore = defineStore("AddProduct", {
               method: "POST",
               headers: {
                 Accept: "application/json",
-                Authorization: `Bearer ${this.Token}`,
+                Authorization: `Bearer ${this.token}`,
               },
               body: formData,
             }

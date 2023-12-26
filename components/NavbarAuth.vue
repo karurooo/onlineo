@@ -1,6 +1,6 @@
 <template>
-  <div class="h-16 w-full relative text-black gap-3">
-    <nav class="bg-[#FAF6F0] relative">
+  <div class="h-16 w-full relative text-white gap-3">
+    <nav class="bg-[#191919] relative">
       <div
         class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2"
       >
@@ -11,11 +11,12 @@
           <button
             type="button"
             class="md:hidden text-gray-300 hover:bg-gray-600 rounded-lg text-sm p-2.5 me-1"
-            @click="toggleMobileMenu"
+            @click="toggeleSearch"
             aria-label="Toggle mobile menu"
           >
             <icon name="material-symbols:search" size="24" />
           </button>
+
           <div class="relative hidden md:block">
             <div
               class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
@@ -31,7 +32,7 @@
               placeholder="Search..."
             />
           </div>
-
+          <SearchBar v-if="ishidden" />
           <button
             type="button"
             class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-300 rounded-lg md:hidden hover:bg-gray-600"
@@ -114,5 +115,9 @@ const navigateToSearch = () => {
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
+};
+//create a function to toggle the search bar
+const toggeleSearch = () => {
+  ishidden.value = !ishidden.value;
 };
 </script>

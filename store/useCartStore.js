@@ -7,22 +7,21 @@ const { notify } = useNotification();
 export const useCartStore = defineStore("cart", {
   state: () => ({
     items: [],
+    total: 0, // Add this line to hold the total from the backend
     showCartModal: false,
+    ProductCategory: [
+      { id: 1, name: "Casual" },
+      { id: 2, name: "Formal" },
+      { id: 3, name: "Sneakers" },
+      { id: 4, name: "Boots" },
+      { id: 5, name: "Sandals" },
+      { id: 6, name: "Running" },
+      { id: 7, name: "Basketball" },
+      { id: 8, name: "Cricket" },
+      { id: 9, name: "Soccer" },
+      { id: 10, name: "Tennis" },
+    ],
   }),
-  getters: {
-    total: (state) => {
-      return state.items.reduce((acc, item) => {
-        // Check if prod_price is defined and is a string before calling replace
-        const price =
-          typeof item.prod_price === "string"
-            ? parseFloat(item.prod_price.replace(/[^0-9.-]+/g, ""))
-            : item.prod_price;
-        const quantity = Number(item.quantity);
-        // If both are numbers, add to the accumulator
-        return !isNaN(price) && !isNaN(quantity) ? acc + price * quantity : acc;
-      }, 0);
-    },
-  },
 
   actions: {
     initializeStore() {
@@ -90,7 +89,7 @@ export const useCartStore = defineStore("cart", {
 
     async fetchCart() {
       const { userId, token } = getToken();
-      if (!userId) {
+      if (!userId || !token) {
         notify({
           title: "Authentication Error",
           text: "Please log in to view your cart.",
@@ -111,20 +110,20 @@ export const useCartStore = defineStore("cart", {
           }
         );
         if (!response.ok) {
-          // Notice the change here from `data.ok` to `response.ok`
-          console.log(this.Token);
-          throw new Error("Failed to fetch cart");
+          throw new Error(`Failed to fetch cart: ${response.statusText}`);
         }
         const cartData = await response.json();
-        this.items = cartData;
-        return cartData;
+        console.log("Received cart data:", cartData); // Check the received data
+        this.items = cartData.items;
+        this.total = cartData.total;
+        console.log("Updated total in store:", this.total); // Confirm store's total is updated
       } catch (error) {
         notify({
           title: "Error",
           text: "Failed to fetch cart items",
           icon: "error",
         });
-        return [];
+        console.error("Fetch cart failed:", error);
       }
     },
 
@@ -226,6 +225,10 @@ export const useCartStore = defineStore("cart", {
     },
     toggleCartModal() {
       this.showCartModal = !this.showCartModal;
+    },
+    getCategoryNameById(categortId) {
+      const category = this.ProductCategory.find((c) => c.id === categortId);
+      return category ? category.name : "Unkown Category";
     },
   },
 });

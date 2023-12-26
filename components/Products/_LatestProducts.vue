@@ -17,7 +17,7 @@
         class="flex flex-col items-center w-full sm:w-auto"
       >
         <div
-          class="h-80 w-80 bg-orange-500 text-black flex flex-col justify-center items-center hover:scale-105 translate-transform ease-in-out duration-500 mx-5 p-2"
+          class="h-80 w-80 text-black flex flex-col justify-center items-center hover:scale-105 translate-transform ease-in-out duration-500 mx-5 p-2"
           @click="showProductDetails(product)"
           cursor="pointer"
         >

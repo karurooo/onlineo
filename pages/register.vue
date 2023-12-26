@@ -1,12 +1,12 @@
 <template>
   <div
-    class="flex h-screen w-full bg-black text-white items-center justify-center"
+    class="flex h-screen w-full bg-black text-white items-center justify-center p-8"
   >
     <form
       @submit.prevent="SubmitSignup"
-      class="flex flex-col items-center justify-center w-full max-w-md p-6 gap-4 bg-black shadow-gray-400 rounded-lg shadow-lg"
+      class="flex flex-col items-center justify-center w-full max-w-md p-6 gap-4 bg-[#F4EAE0] shadow-gray-400 rounded-lg shadow-lg md:scale-125"
     >
-      <h1 class="text-3xl font-bold">Signup</h1>
+      <h1 class="text-3xl font-bold text-black">Signup</h1>
       <template v-for="Field in FormField">
         <input
           required
@@ -25,7 +25,7 @@
       </button>
       <NuxtLink
         to="/login"
-        class="mt-4 text-sm hover:underline hover:text-gray-300"
+        class="mt-4 text-sm text-black hover:underline hover:text-gray-800"
       >
         Already have an account? Sign in
       </NuxtLink>

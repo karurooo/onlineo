@@ -4,10 +4,10 @@
     v-if="isVisible"
   >
     <div
-      class="h-[600px] w-[600px] border-2 absolute top-40 xl:left-[450px] lg:left-[230px] 2xl:left-[1000px] p-10 rounded-lg z-50 bg-black flex flex-col justify-center"
+      class="h-[600px] w-[600px] absolute top-40 p-10 rounded-lg z-50 bg-[#343A40] flex flex-col justify-center"
     >
       <button
-        class="h-10 w-10 border-2 hover:bg-gray-700 rounded-full absolute right-5 top-5"
+        class="h-10 w-10 shadow-lg shadow-black bg-[#007BFF] hover:bg-gray-700 rounded-full absolute right-5 top-5"
         @click="closeModal"
       >
         <icon size="24" name="material-symbols:close-rounded" />
@@ -30,23 +30,28 @@
           @change="handleImageUpload"
           ref="fileInput"
         />
-
-        <label for="underline_select" class="sr-only">Underline select</label>
-        <select
-          id="underline_select"
-          class="block py-2.5 px-0 w-full text-sm text-white bg-black border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-          v-model="addProducts.ProductDetail.category_id"
-        >
-          <option disabled selected>Product Category</option>
-          <option
-            v-for="category in addProducts.ProductCategory"
-            :key="category.id"
-            :value="category.id"
-            class="text-white bg-black"
+        <div class="flex gap-4">
+          <label for="underline_select" class="sr-only">Underline select</label>
+          <select
+            id="underline_select"
+            class="block py-2.5 px-0 w-full text-sm text-white bg-black border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+            v-model="addProducts.ProductDetail.category_id"
           >
-            {{ category.name }}
-          </option>
-        </select>
+            <option disabled selected>Product Category</option>
+            <option
+              v-for="category in addProducts.ProductCategory"
+              :key="category.id"
+              :value="category.id"
+              class="text-white bg-black"
+            >
+              {{ category.name }}
+            </option>
+          </select>
+
+          <button class="bg-[#007BFF] shadow-lg shadow-black rounded-lg w-44">
+            Add Category
+          </button>
+        </div>
 
         <button
           class="h-12 w-32 rounded-lg border-2 hover:bg-white hover:text-black"
@@ -61,9 +66,11 @@
 
 <script setup>
 import { useAddProductStore } from "~/store/useAddProduct";
+import { useCategoryStore } from "~/store/useCategoryStore";
 import { useNotification } from "~/composables/useNotifications";
 
 const { notify } = useNotification();
+const addProducts = useAddProductStore();
 
 const props = defineProps({
   isVisible: Boolean,
@@ -76,7 +83,7 @@ const closeModal = () => {
   emit("close"); // This emits the "close" event
   console.log("Modal closed");
 };
-const addProducts = useAddProductStore();
+
 const InputField = [
   {
     type: "text",
@@ -123,6 +130,8 @@ const handleAddProduct = async () => {
     });
   }
 };
+
+//create a function for adding category
 
 onMounted(() => {
   addProducts.initalizeAuth();

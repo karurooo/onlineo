@@ -1,8 +1,9 @@
 <template>
-  <div class="w-full flex flex-col items-center px-4 sm:px-6 lg:px-8">
-    <h3>Recent Products</h3>
+  <div
+    class="w-full h-96 flex flex-col items-center px-4 py-8 sm:px-6 lg:px-8 bg-[#303030]"
+  >
     <div
-      class="h-80 w-full max-w-screen-2xl min-w-0 rounded-lg items-center overflow-hidden"
+      class="h-96 w-full max-w-screen-2xl min-w-0 rounded-lg items-center overflow-hidden"
     >
       <Swiper
         :slides-per-view="slidesPerView"
@@ -22,24 +23,29 @@
           class="flex flex-col items-center w-full sm:w-auto"
         >
           <div
-            class="h-80 w-80 bg-[#F4DFC8] text-black flex flex-col justify-center items-center hover:scale-105 translate-transform ease-in-out duration-500 mx-5 p-2"
+            class="relative h-80 w-80 bg-[#04DFC8] text-black flex flex-col justify-center items-center hover:scale-105 translate-transform ease-in-out duration-500 mx-5 p-2 border-x rounded-lg hover:rounded-lg"
             @click="showProductDetails(product)"
             cursor="pointer"
           >
             <nuxt-img
               :src="product.prod_image"
               alt=""
-              class="h-40 w-40 object-cover shadow-lg rounded-lg m-2"
+              class="absolute top-0 h-40 w-40 object-cover shadow-lg rounded-lg m-2 bg-[#F4DFC8]"
             />
-            <p class="text-lg text-center">{{ product.prod_name }}</p>
-            <p class="text-lg">₱{{ product.prod_price }}</p>
-            <div class="flex gap-3">
-              <button
-                class="h-12 w-32 rounded-lg border-2 shadow-lg hover:bg-gray-700 hover:text-white"
-                @click.stop="addToCart(product)"
+            <div class="relative mt-44 h-48 w-11/12 bg">
+              <p class="text-md text-center px-4">{{ product.prod_name }}</p>
+
+              <div
+                class="flex absolute bottom-0 h-20 w-full right-0 items-center justify-evenly"
               >
-                Add to Cart
-              </button>
+                <p class="text-md">₱{{ product.prod_price }}</p>
+                <button
+                  class="h-12 w-32 rounded-lg border-2 shadow-lg hover:bg-gray-700 hover:text-white"
+                  @click.stop="addToCart(product)"
+                >
+                  Add to Cart
+                </button>
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -72,7 +78,7 @@ const slidesPerView = computed(() => {
     } else if (width >= 1024 && width < 1280) {
       return 4;
     } else {
-      return 5;
+      return 4;
     }
   }
 });

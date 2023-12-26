@@ -99,7 +99,11 @@ export const useAuthStore = defineStore("auth", {
         const response = await fetch(
           "http://project110.test/api/check-session",
           {
-            credentials: "include",
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
           }
         );
 

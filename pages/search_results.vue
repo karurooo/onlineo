@@ -9,31 +9,34 @@
       </h1>
       <div
         v-if="products.length"
-        class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
+        class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
       >
         <div
           v-for="product in products"
           :key="product.id"
-          class="w-full max-w-sm bg-[#F4DFC8] rounded-lg hover:cursor-pointer hover:scale-105 translate-transform ease-in-out duration-500"
+          class="h-[450px] w-72 shadow-lg bg-[#007BFF] shadow-black rounded-lg border"
           @click="showProductDetails(product)"
         >
           <nuxt-img
             :src="product.prod_image"
             :alt="product.prod_name"
-            class="w-36 h-36 object-cover border"
+            class="p-2 lg:p-8 rounded-t-lg shadow-inner shadow-gray-900"
           />
-          <div class="p-4 text-center">
-            <h3 class="text-md font-semibold">{{ product.prod_name }}</h3>
-            <p class="text-xs">{{ product.prod_description }}</p>
-            <div class="flex justify-evenly items-center mt-3 gap-4">
-              <span class="text-lg font-bold">P{{ product.prod_price }}</span>
-              <button
-                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                @click="addToCart(product)"
-              >
-                Add to Cart
-              </button>
-            </div>
+
+          <h3 class="text-white text-center text-xl font-bold">
+            {{ product.prod_name }}
+          </h3>
+
+          <div class="flex justify-evenly items-center my-2 gap-4">
+            <span class="text-lg lg:text-lg text-white"
+              >P{{ product.prod_price }}</span
+            >
+            <button
+              class="bg-[#FD7E14] h-10 w-32 text-lg rounded-lg shadow-lg shadow-black text-center text-white hover:bg-[#E85D04]"
+              @click="addToCart(product)"
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
         <!-- End of product cards -->

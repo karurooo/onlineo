@@ -138,34 +138,5 @@ export const useProductStore = defineStore("product", {
         this.isLoadingAllProducts = false;
       }
     },
-
-    async categoryProducts(categoryId) {
-      this.isLoadingAllProducts = true;
-      this.allProductsError = null;
-
-      try {
-        const response = await fetch(
-          `http://project110.test/api/products/category/${categoryId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch all products");
-        }
-
-        const data = await response.json();
-        return data; // Assuming the API returns the array of products directly
-      } catch (error) {
-        console.error("There was an error fetching the products:", error);
-        this.allProductsError = error;
-      } finally {
-        this.isLoadingAllProducts = false;
-      }
-    },
   },
 });

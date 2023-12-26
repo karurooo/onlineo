@@ -1,10 +1,10 @@
 <template>
   <div
-    class="h-full w-full bg-black min-h-screen text-[#F4EAE0] relative mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8"
+    class="h-full w-full bg-black min-h-screen text-[#F4EAE0] relative mx-auto max-w-2xl sm:py-24 lg:max-w-7xl lg:px-8"
   >
-    <div class="py-6 px-6 relative">
+    <div class="py-6 relative">
       <div
-        class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
+        class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
       >
         <div
           class="w-full max-w-sm bg-[#F4EAE0] rounded-lg hover:cursor-pointer hover:scale-105 translate-transform ease-in-out duration-500 relative"
@@ -19,22 +19,20 @@
 
           <div class="pb-5 relative h-32">
             <h3
-              class="text-lg font-semibold tracking-tight text-center text-gray-900 px-10"
+              class="text-sm lg:text-lg font-semibold text-center text-gray-900 px-3 lg:px-10"
             >
               {{ product.prod_name }}
             </h3>
 
-            <div
-              class="flex justify-evenly items-center mt-3 gap-4 absolute bottom-0 w-full h-20"
-            >
+            <div class="flex justify-evenly items-center gap-4">
               <button
-                class="text-md font-bold px-6 py-2 rounded-lg shadow-md shadow-black text-black hover:animate-bounce active:bg-[#FAF6F0] transition-transform duration-300 ease-in-out"
+                class="text-sm lg:text-md font-bold px-3 lg:px-6 py-2 rounded-lg shadow-md shadow-black text-black active:bg-black transform transition-transform ease-in-out duration-500 bg-[#F4DFC8]"
                 @click="startEditing(product)"
               >
                 Edit
               </button>
               <button
-                class="text-sm font-bold px-4 py-2 rounded-lg shadow-md shadow-black bg-black border text-[#F4DFC8] hover:animate-bounce transition-transform duration-300 ease-in-out"
+                class="text-sm font-bold px-4 py-2 rounded-lg shadow-md shadow-black bg-black border text-[#F4DFC8]"
                 @click="deleteProduct(product.id)"
               >
                 Delete
