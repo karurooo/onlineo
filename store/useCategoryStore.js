@@ -14,9 +14,18 @@ export const useCategoryStore = defineStore("Category", {
     addCategorySuccess: false,
     products: [],
     showModal: false,
+    showAddCategoryModal: false,
+    isLoadingAllCategories: false,
+    allCategoriesError: null,
   }),
 
   actions: {
+    showAddCategory() {
+      this.showAddCategoryModal = true;
+    },
+    hideAddCategory() {
+      this.showAddCategoryModal = false;
+    },
     showProducts(products) {
       this.products = products;
       this.showModal = true;
@@ -120,7 +129,10 @@ export const useCategoryStore = defineStore("Category", {
         this.addCategorySuccess = false;
       }
     },
+
     async fetchAllCategories() {
+      this.isLoadingAllCategories = true;
+      this.allCategoriesError = null;
       try {
         const response = await fetch("http://project110.test/api/category", {
           method: "GET",

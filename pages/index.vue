@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black h-screen w-full">
+  <div class="bg-black h-full w-full">
     <Navbar />
     <div class="flex flex-col">
       <div class="items-center flex flex-col lg:mt-60 mt-44 px-8">
@@ -12,7 +12,7 @@
       </div>
 
       <SearchBar />
-      <Products_Category />
+      <Products_Category class="lg:mt-96" />
     </div>
   </div>
 </template>

@@ -2,7 +2,6 @@
   <div
     class="flex h-screen bg-black text-white items-center justify-center p-8 flex-col gap-4 lg:gap-20"
   >
-    <h1 class="text-5xl lg:text-7xl text-yellow-400 font-bold">Onlineo</h1>
     <form
       @submit.prevent="SubmitLogin"
       class="flex flex-col w-full max-w-md p-6 gap-4 bg-[#343A40] rounded-lg shadow-lg md:scale-105"
@@ -15,7 +14,7 @@
           :type="Field.type"
           :id="Field.id"
           :placeholder="Field.placeholder"
-          class="w-full px-4 py-2 bg-whitetext-sm rounded-lg shadow-black shadow-lg border"
+          class="w-full px-4 py-2 bg-white text-black text-sm rounded-lg shadow-black shadow-lg border"
         />
       </div>
       <button
@@ -26,7 +25,7 @@
       </button>
       <NuxtLink
         to="/register"
-        class="mt-4 text-sm text-white hover:underline hover:text-gray-800 text-center"
+        class="mt-4 text-sm text-white hover:underline hover:text-[#007BFF] text-center"
       >
         Don't have an account? Signup
       </NuxtLink>

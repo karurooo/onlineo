@@ -1,11 +1,14 @@
 <template>
-  <div class="fixed inset-0 bg-black/80 z-50 flex justify-center items-center">
+  <div
+    class="fixed inset-0 bg-black/80 z-50 flex justify-center items-center"
+    v-if="isVisible"
+  >
     <div
-      class="h-[600px] w-[600px] absolute top-40 p-10 rounded-lg z-50 bg-[#343A40] flex flex-col justify-center"
+      class="h-[600px] w-[600px] absolute top-40 right-[40rem] p-10 rounded-lg z-50 bg-[#343A40] flex flex-col justify-center"
     >
       <button
         class="h-10 w-10 shadow-lg shadow-black bg-[#007BFF] hover:bg-gray-700 rounded-full absolute right-5 top-5"
-        @click="closeModal"
+        @click="$emit('close')"
       >
         <icon size="24" name="material-symbols:close-rounded" />
       </button>
@@ -20,14 +23,14 @@
         />
         <label for="categoryImage">Category Image</label>
         <input
-          class="block w-full text-sm text-white border-b-2 cursor-pointer bg-transparent focus:outline-none"
+          class="block w-full text-sm text-white border-b-2 cursor-pointer bg-[#343A40] focus:outline-none"
           id="categoryImage"
           type="file"
           @change="handleImageUpload"
           ref="fileInput"
         />
         <button
-          class="h-12 w-32 rounded-lg border-2 hover:bg-white hover:text-black"
+          class="h-12 w-32 rounded-lg border-2 bg-[#FD7E14] hover:bg-[#E85D04]"
           @click="handleAddCategory"
         >
           Add Category
@@ -43,10 +46,15 @@ import { useNotification } from "~/composables/useNotifications";
 const { notify } = useNotification();
 const addCategory = useCategoryStore();
 
-const emit = defineEmits(["close"]);
+const props = defineProps({
+  isVisible: Boolean,
+});
+
+// Setup the close event emitte
 
 const closeModal = () => {
-  emit("close");
+  console.log("closeModal called"); // Debug log
+  emit("close"); // Emitting an event for the parent to listen to
 };
 const handleImageUpload = async (event) => {
   await addCategory.uploadImage(event);

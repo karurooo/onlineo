@@ -185,6 +185,7 @@ export const useCartStore = defineStore("cart", {
           notify({
             title: "Success",
             message: "Item removed from cart",
+            icon: "success",
             type: "success",
           });
         }

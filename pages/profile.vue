@@ -4,7 +4,7 @@
     <div class="flex flex-col items-center justify-center p-10">
       <h1>This is the Profile</h1>
 
-      <Listing_AddCategory />
+      <Skeleton_Categories />
     </div>
   </div>
 </template>

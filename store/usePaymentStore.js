@@ -22,6 +22,7 @@ export const usePaymentStore = defineStore("payment", {
         if (response.ok) {
           const responseData = await response.json();
           this.checkoutUrl = responseData.checkout_url; // Store the checkout URL in the state
+          console.log(this.checkoutUrl);
         } else {
           throw new Error("Payment checkout URL fetch failed.");
         }

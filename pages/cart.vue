@@ -1,31 +1,33 @@
 <template>
-  <div class="h-screen w-full bg-[#191919] text-white">
+  <div class="h-full w-full bg-black text-white">
     <NavbarAuth />
-    <div class="flex h-full w-full">
+    <div class="flex flex-col lg:flex-row">
       <!-- Main container for the cart -->
       <div
-        class="h-full w-full bg-[#161212] text-[#F4EAE0] relative mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8"
+        class="h-screen w-full bg-[#161212] text-[#F4EAE0] relative mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8"
       >
         <h2 class="text-4xl font-bold mb-4 text-black">Your Cart</h2>
         <ul class="space-y-4">
           <li
             v-for="item in myCart"
             :key="item.id"
-            class="h-72 w-full flex text-black bg-slate-500"
+            class="lg:h-72 h-[550px] w-full flex lg:flex-row flex-col text-white bg-[#007BFF] rounded-lg shadow-lg justify-center items-center gap-6"
           >
             <nuxt-img
               :src="item?.product?.prod_image"
-              class="h-60 w-60 bg-[#04DFC8] rounded-lg shadow-lg m-6 object-cover"
+              class="lg:h-60 lg:w-60 h-36 w-36 lg:mt-0 mt-72 m-4 object-cover"
             />
             <!--div details-->
             <div
-              class="w-full flex justify-between bg-slate-200 m-6 px-10 relative"
+              class="w-full flex lg:flex-row flex-col justify-between m-6 px-10 relative"
             >
               <div class="flex flex-col gap-6">
                 <p class="font-bold text-lg">
                   {{ item?.product?.prod_name }}
                 </p>
-                <p class="w-3/4">{{ item?.product?.prod_description }}</p>
+                <p class="w-3/4">
+                  {{ item?.product?.prod_description }}
+                </p>
                 <p class="text-sm">
                   Category: {{ getCategoryNameById(item.product.category_id) }}
                 </p>
@@ -35,7 +37,7 @@
                   <p>₱{{ item?.product?.prod_price }}</p>
                   <div class="flex flex-col lg:flex">
                     <button
-                      class="shadow-lg shadow-gray-400 h-8 w-12 lg:h-10 lg:w-24 border-2 rounded-lg hover:bg-white hover:text-black text-[10px] lg:text-base"
+                      class="bg-[#FD7E14] hover:bg-[#E85D04] shadow-lg shadow-black h-8 w-12 lg:h-10 lg:w-24 rounded-lg text-[10px] lg:text-base"
                       @click="deleteFromCart(item)"
                     >
                       Remove
@@ -47,7 +49,7 @@
                 <!--Quantity Component-->
                 <div class="w-36 flex justify-between items-center lg:gap-3">
                   <button
-                    class="lg:h-8 lg:w-8 rounded-lg border-2 shadow-lg hover:bg-gray-700 hover:text-white"
+                    class="bg-[#FD7E14] hover:bg-[#E85D04] lg:h-8 lg:w-8 rounded-lg shadow-lg shadow-black hover:text-white"
                     @click="decreaseQuantity(item)"
                   >
                     <!-- Icon component -->
@@ -56,7 +58,7 @@
 
                   <span class="mx-2">{{ item?.quantity }}</span>
                   <button
-                    class="h-8 w-8 rounded-lg border-2 shadow-lg hover:bg-gray-700 hover:text-white"
+                    class="bg-[#FD7E14] hover:bg-[#E85D04] h-8 w-8 rounded-lg shadow-lg shadow-black hover:text-white"
                     @click="increaseQuantity(item)"
                   >
                     <icon name="material-symbols:add" size="20" />
@@ -74,7 +76,7 @@
       </div>
 
       <!-- Fixed total section -->
-      <div class="inset-x-0 bottom-0 p-4 shadow-lg text-white">
+      <div class="bg-[#343A40] p-4 shadow-lg text-white">
         <div class="max-w-3xl mx-auto flex justify-between items-center w-full">
           <strong class="text-2xl"
             >Total: ₱{{ cartStore.total.toFixed(2) }}</strong
@@ -139,9 +141,6 @@ const deleteFromCart = async (item) => {
   } catch (error) {
     console.error("Error deleting item from cart:", error);
   }
-};
-const closeCart = () => {
-  cartStore.hideCartModal();
 };
 
 const updateCartAndFetch = async (item) => {

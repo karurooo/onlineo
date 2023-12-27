@@ -7,32 +7,32 @@
         class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
       >
         <div
-          class="w-full max-w-sm bg-[#F4EAE0] rounded-lg hover:cursor-pointer hover:scale-105 translate-transform ease-in-out duration-500 relative"
+          class="w-full max-w-sm bg-[#007BFF] text-white rounded-lg hover:cursor-pointer hover:scale-105 translate-transform ease-in-out duration-500 border"
           v-for="product in myProducts"
           :key="product.id"
         >
           <nuxt-img
             :src="product.prod_image"
             :alt="product.prod_name"
-            class="p-8 hover:p-4 bg-[#F4DFC8] shadow-black shadow-inner transition-transform duration-300 ease-in-out"
+            class="p-2 lg:p-8 rounded-t-lg shadow-inner shadow-gray-900"
           />
 
-          <div class="pb-5 relative h-32">
-            <h3
-              class="text-sm lg:text-lg font-semibold text-center text-gray-900 px-3 lg:px-10"
-            >
-              {{ product.prod_name }}
-            </h3>
+          <div class="px-5 pb-5 relative">
+            <div class="flex h-20 w-full py-3">
+              <h3 class="text-sm lg:text-lg truncate font-semibold">
+                {{ product.prod_name }}
+              </h3>
+            </div>
 
             <div class="flex justify-evenly items-center gap-4">
               <button
-                class="text-sm lg:text-md font-bold px-3 lg:px-6 py-2 rounded-lg shadow-md shadow-black text-black active:bg-black transform transition-transform ease-in-out duration-500 bg-[#F4DFC8]"
+                class="text-sm lg:text-md font-bold px-3 lg:px-6 py-2 rounded-lg shadow-lg shadow-black text-white active:bg-black transform transition-transform ease-in-out duration-500 bg-[#FD7E14] hover:bg-[#E85D04]"
                 @click="startEditing(product)"
               >
                 Edit
               </button>
               <button
-                class="text-sm font-bold px-4 py-2 rounded-lg shadow-md shadow-black bg-black border text-[#F4DFC8]"
+                class="text-sm font-bold px-4 py-2 rounded-lg shadow-lg shadow-black bg-[#FD7E14] hover:bg-[#E85D04] text-white"
                 @click="deleteProduct(product.id)"
               >
                 Delete

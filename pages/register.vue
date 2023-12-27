@@ -1,12 +1,12 @@
 <template>
   <div
-    class="flex h-screen w-full bg-black text-white items-center justify-center p-8"
+    class="flex flex-col h-screen w-full bg-black text-white items-center justify-center p-8"
   >
     <form
       @submit.prevent="SubmitSignup"
-      class="flex flex-col items-center justify-center w-full max-w-md p-6 gap-4 bg-[#F4EAE0] shadow-gray-400 rounded-lg shadow-lg md:scale-125"
+      class="flex flex-col items-center justify-center w-full max-w-md p-6 gap-4 bg-[#343A40] rounded-lg shadow-lg md:scale-105"
     >
-      <h1 class="text-3xl font-bold text-black">Signup</h1>
+      <h1 class="text-3xl font-bold text-white">Signup</h1>
       <template v-for="Field in FormField">
         <input
           required
@@ -14,18 +14,18 @@
           :type="Field.type"
           :id="Field.id"
           :placeholder="Field.placeholder"
-          class="w-full px-4 py-2 bg-transparent text-sm rounded-lg bg-black shadow-gray-400 shadow-lg"
+          class="w-full px-4 py-2 text-sm rounded-lg text-black bg-white shadow-gray-400 shadow-lg"
         />
       </template>
       <button
         type="submit"
-        class="w-full py-2 mt-4 text-white bg-gray-800 rounded-lg shadow-lg hover:bg-gray-600"
+        class="w-full py-2 mt-4 text-white bg-[#007BFF] rounded-lg shadow-lg shadow-black hover:bg-[#005AE0]"
       >
         Register
       </button>
       <NuxtLink
         to="/login"
-        class="mt-4 text-sm text-black hover:underline hover:text-gray-800"
+        class="mt-4 text-sm text-white hover:underline hover:text-[#007BFF]"
       >
         Already have an account? Sign in
       </NuxtLink>

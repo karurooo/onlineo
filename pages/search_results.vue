@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black h-screen w-full text-white">
+  <div class="bg-black h-full w-full text-white">
     <NavbarAuth />
     <section
       class="h-full w-full bg-black min-h-screen text-[#F4EAE0] relative mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8"
@@ -14,7 +14,7 @@
         <div
           v-for="product in products"
           :key="product.id"
-          class="h-[450px] w-72 shadow-lg bg-[#007BFF] shadow-black rounded-lg border"
+          class="h-[500px] w-72 shadow-lg bg-[#007BFF] shadow-black rounded-lg border"
           @click="showProductDetails(product)"
         >
           <nuxt-img

@@ -1,13 +1,13 @@
 <template>
   <div
     v-if="isVisible"
-    class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
+    class="fixed inset-0 bg-black/80 z-50 flex justify-center items-center"
   >
     <div
-      class="bg-[#F4DFC8] shadow-gray-300 p-6 rounded-lg shadow-xl max-w-md w-full"
+      class="h-[600px] w-[600px] absolute top-40 p-10 rounded-lg z-50 bg-[#343A40] flex flex-col justify-center"
     >
-      <h2 class="text-xl font-bold mb-4 text-black">Edit Product</h2>
-      <div class="mb-4">
+      <h1 class="text-4xl font-bold">Edit Product</h1>
+      <div class="flex flex-col gap-4">
         <input
           required
           v-for="field in InputField"
@@ -15,50 +15,47 @@
           :key="field.model"
           :type="field.type"
           :placeholder="field.placeholder"
-          class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none"
+          class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none"
         />
       </div>
-
-      <label
-        for="productImage"
-        class="block mb-2 text-sm font-medium text-gray-700"
-        >Product Image</label
-      >
+      <label class="my-4">Product Image</label>
       <input
+        class="block w-full text-sm text-white border-b-2 cursor-pointer bg-[#343A40] focus:outline-none"
+        id="categoryImage"
         type="file"
         @change="handleImageUpload"
-        class="block w-full text-sm text-gray-900 rounded-lg border border-gray-300 cursor-pointer focus:outline-none"
-        id="productImage"
+        ref="fileInput"
       />
-
-      <label for="underline_select" class="sr-only">Underline select</label>
+      <label class="sr-only">Product Category</label>
 
       <select
         id="underline_select"
-        class="block py-2.5 px-0 w-full text-sm text-gray-700 bg-transparent border-0 border-b-2 border-black b appearance-none focus:outline-none focus:ring-0 focus:border-gray-900"
+        class="block py-2.5 px-0 w-full text-sm text-gray-700 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900"
         v-model="editProductStore.EditProductDetail.category_id"
         @change="handleSelectChange"
       >
+        <label class="my-4">Product Category</label>
+        <icon name="ion:md-arrow-dropdown" />
         <option disabled selected>Product Category</option>
         <option
           v-for="category in editProductStore.ProductCategory"
           :key="category.id"
           :value="category.id"
-          class="text-gray-700 bg-white hover:bg-gray-100"
+          class="text-white bg-[#343A40]"
         >
           {{ category.name }}
         </option>
       </select>
-      <div class="flex justify-end mt-6">
+      <div class="flex justify-end mt-6 gap-4">
         <button
           @click="save"
-          class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mr-2"
+          class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg shadow-lg shadow-black"
         >
           Save
         </button>
         <button
           @click="cancel"
-          class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded"
+          class="bg-[#FD7E14] hover:bg-red-700 text-white py-2 px-4 rounded-lg shadow-lg shadow-black"
         >
           Cancel
         </button>

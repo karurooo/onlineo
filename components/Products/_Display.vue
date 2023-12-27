@@ -1,13 +1,13 @@
 <template>
   <div
-    class="h-full w-full bg-[#343A40] min-h-screen text-[#F4EAE0] relative mx-auto max-w-2xl px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 my-10 rounded-lg shadow-lg shadow-black"
+    class="h-full w-full min-h-screen text-[#F4EAE0] relative mx-auto max-w-2xl px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 my-10 rounded-lg shadow-lg shadow-black"
   >
     <h1 class="text-3xl md:text-4xl font-bold self-start mb-10">
       All Products
     </h1>
 
     <div v-if="productStore.isLoadingAllProducts">
-      <Products_Skeleton />
+      <Skeleton_AllProducts />
     </div>
 
     <div v-else-if="allProducts.length === 0" class="no-products">
@@ -42,7 +42,7 @@
             </p>
 
             <button
-              class="self-center items-center text-[8px] lg:text-sm h-10 w-32 bg-[#FD7E14] rounded-lg shadow-lg shadow-black"
+              class="self-center items-center text-[8px] lg:text-sm h-10 w-32 bg-[#FD7E14] hover:bg-[#E85D04] rounded-lg shadow-lg shadow-black"
               @click="showProductDetails(product)"
             >
               Add to Cart
